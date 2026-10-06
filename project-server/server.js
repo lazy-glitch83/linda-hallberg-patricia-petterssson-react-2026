@@ -8,14 +8,13 @@ const app = express(); // create the express application
 
 app.use(express.json());
 //Defining default route
-app.get("/api/v1.0/computers", (req, res) => {
-  //continuing from p. 3 WORKSHOP 2: Node, express and REST API
+app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-app.get("/", (req, res) => {
-  console.log("---> GET all computers");
-  const stmt = db.prepare("SELECT * FROM computer");
+app.get("/api/v1.0/computers", (req, res) => {
+  console.log("---> GET all computer");
+  const stmt = db.prepare("SELECT * FROM Computer");
   const computers = stmt.all();
   res.json(computers);
 });
@@ -23,7 +22,7 @@ app.get("/", (req, res) => {
 app.get("/api/v1.0/computers/:id", (req, res) => {
   console.log(`---> GET computer with id ${req.params.id}`);
   const theComputer = db
-    .prepare("SELECT * FROM computer WHERE cid = ?")
+    .prepare("SELECT * FROM Computer WHERE cid = ?")
     .get([req.params.id]);
   res.json(theComputer);
 });
