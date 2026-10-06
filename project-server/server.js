@@ -29,6 +29,24 @@ app.get("/", (req, res) => {
     </div>`);
 });
 
+//GET /api/v1.0/computers      -> get all computers
+app.get("/api/v1.0/computers", function (req, res) {
+  console.log("---> GET all computers");
+  const stmt = db.prepare("SELECT * FROM Computer");
+  const computers = stmt.all();
+  res.json(computers);
+});
+
+//GET /api/v1.0/computers/:id      -> get one computer
+app.get("/api/v1.0/computers/:id", (req, res) => {
+  console.log(`---> GET computer with cid ${req.params.id}`);
+  const theComputer = db
+    .prepare("SELECT * FROM Computer WHERE cid = ?")
+    .get([req.params.id]);
+
+  res.json(theComputer);
+});
+
 // POST /api/v1.0/computers      -> create a computer
 app.post("/api/v1.0/computers", (req, res) => {
   // const { brand, model, ram, disk, year, eid } = req.body
