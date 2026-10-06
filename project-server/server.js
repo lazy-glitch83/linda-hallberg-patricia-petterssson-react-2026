@@ -1,34 +1,32 @@
 // LOAD PACKAGES
-const express = require("express"); //read the express library
+const express = require("express"); // read the express library
 const Database = require("better-sqlite3"); // connection to sqlite3
-const cors = require("cors"); // enable cors for all routes
+const cors = require("cors"); // enable CORS for all routes
 
-//DEFINE CONSTANTS
+// DEFINE CONSTANTS
 const MYPORT = 3000; // define the port
 const db = new Database("./company.db", { verbose: console.log });
 const app = express(); // create the express application
 
-//DEFINE MIDDLEWARE
+// DEFINE MIDDLEWARES
 app.use(express.json());
-//Defining default route
+
+// ROUTES
 app.get("/", (req, res) => {
-  res.send("Server is running");
-});
+  // define the default route '/'
+  res.send(`<div style="font-family: sans-serif;">
+        <h1>Welcome on the server API 1.0</h1>
+        <h2>REST API:</h2>
+        <ul>
+            <li>GET all computers: <a href="http://localhost:${MYPORT}/api/v1.0/computers">http://localhost:${MYPORT}/api/v1.0/computers</a></li>
 
-//GET /api/v1.0/computers     -> get all computers
-app.get("/api/v1.0/computers", function (req, res) {
-  console.log("---> GET all computers");
-  const stmt = db.prepare("SELECT * FROM computers");
-  const computers = stmt.all();
-  res.json(computers);
-});
+            <li>GET computer number 2347: <a href="http://localhost:${MYPORT}/api/v1.0/computers/2347">http://localhost:${MYPORT}/api/v1.0/computers/2347</a></li>
 
-app.get("/api/v1.0/computers/:id", (req, res) => {
-  console.log(`---> GET computer with id ${req.params.id}`);
-  const theComputer = db
-    .prepare("SELECT * FROM computers WHERE cid = ?")
-    .get([req.params.id]);
-  res.json(theComputer);
+            <li>ADD a computer: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers', { method: 'POST' })">Add Computer</button></li>
+
+            <li>DELETE computer number 1170: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers/1170', { method: 'DELETE' })">Delete Computer</button></li>
+        </ul>
+    </div>`);
 });
 
 // POST /api/v1.0/computers      -> create a computer
