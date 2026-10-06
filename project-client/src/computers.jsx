@@ -22,7 +22,6 @@ function Computers() {
     return (
         <div>
             <button onClick={updateComputers}>Update Computers</button>
-            <p>Computers:</p>
             <ul>
                 {listComputers.map((computers) => (
                     <li key={computers.cid}> 
