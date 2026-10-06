@@ -24,11 +24,11 @@ function Computers() {
             <button onClick={updateComputers}>Update Computers</button>
             <p>Computers:</p>
             <ul>
-                {listComputers.map((computer) => (
-                    <li key={computer.cid}> 
-                        Type: {computer.type},
-                        Brand: {computer.brand},
-                        Model: {computer.model}
+                {listComputers.map((computers) => (
+                    <li key={computers.cid}> 
+                        Type: {computers.type},
+                        Brand: {computers.brand},
+                        Model: {computers.model}
                     </li>
                 ))}
             </ul>

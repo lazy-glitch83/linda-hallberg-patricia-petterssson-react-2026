@@ -10,6 +10,7 @@ const app = express(); // create the express application
 
 // DEFINE MIDDLEWARES
 app.use(express.json());
+app.use(cors()); // enable CORS for all routes
 
 // ROUTES
 app.get("/", (req, res) => {

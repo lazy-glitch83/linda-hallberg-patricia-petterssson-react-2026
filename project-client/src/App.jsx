@@ -1,4 +1,17 @@
-import { useState } from 'react'
+import Computers from './computers.jsx'
+import './App.css'
+
+function App() {
+  return (
+    <div className="devices">
+      <h1>ALL COMPUTERS</h1>
+      <Computers />
+    </div>
+  )
+}
+export default App
+
+/*import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
@@ -119,4 +132,4 @@ function App() {
   )
 }
 
-export default App
+export default App */
