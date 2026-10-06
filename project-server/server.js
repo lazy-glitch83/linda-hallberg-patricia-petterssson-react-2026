@@ -10,20 +10,9 @@ const app = express(); // create the express application
 
 //DEFINE MIDDLEWARE
 app.use(express.json());
-
-//ROUTES
+//Defining default route
 app.get("/", (req, res) => {
-  //define the default route '/'
-  res.send(`<div style="font-family: sans-serif;">
-    <h1> Welcome on the server API 1.0 </h1>
-    <h2> REST API </h2>
-    <ul>
-    <li> GET all computers: <a href="http://localhost:${MYPORT}/api/v1.0/computers">http://localhost:${MYPORT}/api/v1.0/computers</a></li>
-    <li> GET computer number 2347: <a href="http://localhost:${MYPORT}/api/v1.0/computers/2347">http://localhost:${MYPORT}/api/v1.0/computers/2347</a></li>
-    <li> Add a computer: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers', {method: 'POST' })">Add Computer</button></li>
-    <li> DELETE computer number 1170: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers/1170', {method: 'DELETE' })">Delete Computer</button></li>
-    </ul>
-    </div>`);
+  res.send("Server is running");
 });
 
 //GET /api/v1.0/computers     -> get all computers
@@ -34,9 +23,8 @@ app.get("/api/v1.0/computers", function (req, res) {
   res.json(computers);
 });
 
-// GET /api/v1.0/computers/:id  -> get one computer
 app.get("/api/v1.0/computers/:id", (req, res) => {
-  console.log(`---> GET computer with cid ${req.params.id}`);
+  console.log(`---> GET computer with id ${req.params.id}`);
   const theComputer = db
     .prepare("SELECT * FROM computers WHERE cid = ?")
     .get([req.params.id]);
