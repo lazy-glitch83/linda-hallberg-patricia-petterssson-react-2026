@@ -1,19 +1,16 @@
 const express = require("express"); // Loading Express package into 'express' variable
-const app = express(); // Creating Express application into 'app' variable
+const Database = require("better-sqlite3"); // connection to sqlite3
 const cors = require("cors"); //enable Cors for all routes
 
 const MYPORT = 3000; // define the port
-const db = new Database(" ./company.db", { verbose: console.log });
+const db = new Database("./company.db", { verbose: console.log });
 const app = express(); // create the express application
 
+app.use(express.json());
 //Defining default route
-app.get("/", (req, res) => {
+app.get("/api/v1.0/computers", (req, res) => {
   //continuing from p. 3 WORKSHOP 2: Node, express and REST API
   res.send("Server is running");
-});
-
-app.listen(MYPORT, () => {
-  console.log(`Server is running on port ${MYPORT}`);
 });
 
 app.get("/", (req, res) => {
@@ -29,4 +26,8 @@ app.get("/api/v1.0/computers/:id", (req, res) => {
     .prepare("SELECT * FROM computer WHERE cid = ?")
     .get([req.params.id]);
   res.json(theComputer);
+});
+
+app.listen(MYPORT, () => {
+  console.log(`Server is running on port ${MYPORT}`);
 });
