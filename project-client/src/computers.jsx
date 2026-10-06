@@ -3,7 +3,7 @@
 import { useState } from "react";
 //import "./index.css";
 
-function computers() {
+function Computers() {
     const [listComputers, setListComputers] = useState([]);
     const updateComputers = () => {
         fetch(
@@ -21,15 +21,18 @@ function computers() {
 //Assume that the data returned from the API is an array of computer objects with properties like cid, name, and description. You can modify the rendering logic based on the actual structure of your data.
     return (
         <div>
-            button onClick={updateComputers}>Update Computers</button>
-        <ul>
-            {listComputers.map((Computer) => (
-                <li key={Computer.cid}> 
-                    
-                </li>
-        </ul>
+            <button onClick={updateComputers}>Update Computers</button>
+            <p>Computers:</p>
+            <ul>
+                {listComputers.map((computer) => (
+                    <li key={computer.cid}> 
+                        Type: {computer.type},
+                        Brand: {computer.brand},
+                        Model: {computer.model}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
-
-export default computers;
+export default Computers;
