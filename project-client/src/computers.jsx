@@ -33,5 +33,6 @@ function Computers() {
             </ul>
         </div>
     );
+
 }
 export default Computers;
