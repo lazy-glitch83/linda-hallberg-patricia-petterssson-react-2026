@@ -59,7 +59,11 @@ app.post("/api/v1.0/computers", (req, res) => {
   const disk = "512GB";
   const year = "2021";
 
-  const theComputer = db.prepare('INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)').run([type, brand, model, ram, disk, year]);
+  const theComputer = db
+    .prepare(
+      "INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)",
+    )
+    .run([type, brand, model, ram, disk, year]);
 
   res.json(theComputer);
 });
