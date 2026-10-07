@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import Computers from './computers.jsx'
-
+import { useState } from "react";
+import Computers from "./computers.jsx";
+import Employees from "./employees.jsx";
 
 function App() {
   return (
@@ -8,9 +8,9 @@ function App() {
       <h1>ALL COMPUTERS</h1>
       <Computers />
     </div>
-  )
+  );
 }
-export default App
+export default App;
 
 /*import { useState } from 'react'
 import heroImg from './assets/hero.png'
