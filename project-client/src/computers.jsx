@@ -7,7 +7,7 @@ function Computers() {
     const [listComputers, setListComputers] = useState([]);
     const updateComputers = () => {
         fetch(
-            `http://localhost:3000/api/v1.0/computers`
+            `http://localhost:3000/api/v1.0/computers` //${MYPORT} ?
         )
             .then((response) => response.json())
             .then((data) => {
