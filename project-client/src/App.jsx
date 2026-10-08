@@ -7,7 +7,7 @@ function App() {
     <div className="devices">
       <h1>ALL COMPUTERS</h1>
       <Computers />
-      <h1>ALL EMPLOYEES</h1> // ok att dessa är på samma div?
+      <h1>ALL EMPLOYEES</h1>
       <Employees />
     </div>
   );
