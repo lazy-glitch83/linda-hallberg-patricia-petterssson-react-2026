@@ -46,7 +46,7 @@ function Employees() {
           </li>
         ))}
       </ul>
-      // text rutan med employeeId där man kan skriva.
+      {/*text rutan med employeeId där man kan skriva */}
       <input
         type="text"
         name="employeeId"
