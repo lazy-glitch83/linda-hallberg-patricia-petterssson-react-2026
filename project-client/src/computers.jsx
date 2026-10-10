@@ -19,8 +19,8 @@ function Computers() {
       .catch((error) => console.error("Error fetching computers:", error));
   };
 
-  const getComputer = () => { //Get a specific computer by its ID
-    fetch(`http://localhost:3000/api/v1.0/computers/${computerId}`)
+  const getComputer = (id) => { //Get a specific computer by its ID
+    fetch(`http://localhost:3000/api/v1.0/computers/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("The data is there");
