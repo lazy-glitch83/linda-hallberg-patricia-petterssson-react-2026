@@ -6,7 +6,7 @@ import { useState } from "react";
 function Computers() {
   const [listComputers, setListComputers] = useState([]);
   const [selectedComputer, setSelectedComputer] = useState(null);
-  const [computerId, setComputerId] = useState("");
+
 
   const updateComputers = () => {
     fetch(`http://localhost:3000/api/v1.0/computers`)
@@ -31,7 +31,7 @@ function Computers() {
   };
 
   return (
-  //Update list so it is clickable and you can get a specific computer by its ID
+  //Click in computer list to get detailed information in specific cid. If eid is null or undefined, display "N/A" instead of the value. 
     <div>
       <button onClick={updateComputers}>Update Computers</button>
       <ul>
@@ -55,7 +55,7 @@ function Computers() {
           <p>RAM: {selectedComputer.ram}</p>
           <p>Disk: {selectedComputer.disk}</p>
           <p>Year: {selectedComputer.year}</p>  
-          <p>Employee ID: {selectedComputer.eid}</p>
+          <p>Employee ID: {selectedComputer.eid !== null && selectedComputer.eid !== undefined ? selectedComputer.eid : "N/A"}</p>
         </div>
       )}
       </div>
