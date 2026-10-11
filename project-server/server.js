@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
         <ul>
             <li>GET all employees: <a href="http://localhost:${MYPORT}/api/v1.0/employees">http://localhost:${MYPORT}/api/v1.0/employees</a></li>
 
-            <li>GET employee number 2: <a href="http://localhost:${MYPORT}/api/v1.0/employees/2">http://localhost:${MYPORT}/api/v1.0/employees/2</a></li>
+            <li>GET employee number 37: <a href="http://localhost:${MYPORT}/api/v1.0/employees/37">http://localhost:${MYPORT}/api/v1.0/employees/37</a></li>
 
             <li>ADD an employee: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/employees', { method: 'POST' })">Add Employee</button></li>
 
@@ -71,7 +71,11 @@ app.post("/api/v1.0/computers", (req, res) => {
   const disk = "512GB";
   const year = "2021";
 
-  const theComputer = db.prepare("INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)").run([type, brand, model, ram, disk, year])
+  const theComputer = db
+    .prepare(
+      "INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)",
+    )
+    .run([type, brand, model, ram, disk, year]);
   res.json(theComputer);
 });
 
@@ -108,7 +112,7 @@ app.get("/api/v1.0/employees/:id", (req, res) => {
 
 // POST /api/v1.0/employees      -> create an employee
 app.post("/api/v1.0/employees", (req, res) => {
-  //const { fname, lname, phone, email, dateofbirth } = req.body; 
+  //const { fname, lname, phone, email, dateofbirth } = req.body;
   console.log("--> ADD an Employee");
   const fname = "John";
   const lname = "Doe";
@@ -116,7 +120,11 @@ app.post("/api/v1.0/employees", (req, res) => {
   const email = "john.doe@example.com";
   const dateofbirth = "1990-01-01";
 
-  const theEmployee = db.prepare("INSERT INTO Employee (fname, lname, phone, email, dateofbirth) VALUES (?, ?, ?, ?, ?)").run([fname, lname, phone, email, dateofbirth])
+  const theEmployee = db
+    .prepare(
+      "INSERT INTO Employee (fname, lname, phone, email, dateofbirth) VALUES (?, ?, ?, ?, ?)",
+    )
+    .run([fname, lname, phone, email, dateofbirth]);
   res.json(theEmployee);
 });
 
@@ -124,11 +132,20 @@ app.post("/api/v1.0/employees", (req, res) => {
 app.put("/api/v1.0/employees/:id", (req, res) => {
   console.log(`--> UPDATE Employee with eid: ${req.params.id}`);
   const theEmployee = db
-    .prepare("UPDATE Employee SET fname = ?, lname = ?, phone = ?, email = ?, dateofbirth = ? WHERE eid = ?")
-    .run([req.body.fname, req.body.lname, req.body.phone, req.body.email, req.body.dateofbirth, req.params.id]);
+    .prepare(
+      "UPDATE Employee SET fname = ?, lname = ?, phone = ?, email = ?, dateofbirth = ? WHERE eid = ?",
+    )
+    .run([
+      req.body.fname,
+      req.body.lname,
+      req.body.phone,
+      req.body.email,
+      req.body.dateofbirth,
+      req.params.id,
+    ]);
 
   res.json(theEmployee);
-}); // 
+}); //
 
 // DELETE /api/v1.0/employees/:id   -> delete an employee
 app.delete("/api/v1.0/employees/:id", (req, res) => {
@@ -139,7 +156,6 @@ app.delete("/api/v1.0/employees/:id", (req, res) => {
 
   res.json(theEmployee);
 });
-
 
 app.listen(MYPORT, () => {
   // listen on the port
