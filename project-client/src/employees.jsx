@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function Employees() {
   const [listEmployees, setListEmployees] = useState([]);
-  //saves the employee we want to display.
+  //saves a list of all the employees on the server, and uses setlistEmployees to update the list
   const [selectedEmployee, setSelectedEmployee] = useState(null); //vart vi sparar personen vi hämtar , borde dessa vara tvärtom?
   const [employeeId, setEmployeeId] = useState(""); //what employee id jag vill använda
   const updateEmployees = () => {
