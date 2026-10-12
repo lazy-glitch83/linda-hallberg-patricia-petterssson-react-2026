@@ -70,7 +70,7 @@ app.get("/api/v1.0/computers/:id", (req, res) => {
 
 // POST /api/v1.0/computers      -> create a computer
 app.post("/api/v1.0/computers", (req, res) => {
-  const { type, brand, model, ram, disk, year, eid } = req.body
+  const { type, brand, model, ram, disk, year, eid } = req.body;
   console.log("--> ADD a Computer");
 
   const theComputer = db
@@ -80,7 +80,6 @@ app.post("/api/v1.0/computers", (req, res) => {
     .run([type, brand, model, ram, disk, year, eid]);
   res.json(theComputer);
 });
-
 
 // DELETE /api/v1.0/computers/:id   -> delete a computer
 app.delete("/api/v1.0/computers/:id", (req, res) => {
@@ -104,10 +103,14 @@ app.get("/api/v1.0/employees", function (req, res) {
 //GET /api/v1.0/employees/:id      -> get one employee
 app.get("/api/v1.0/employees/:id", (req, res) => {
   console.log(`---> GET employee with eid ${req.params.id}`);
+  const employeeId = req.params.id;
   const theEmployee = db
     .prepare("SELECT * FROM Employee WHERE eid = ?")
-    .get([req.params.id]);
-
+    .get(employeeId);
+  if (!theEmployee) {
+    res.status(404).json({ error: "Employee not found" });
+    return;
+  }
   res.json(theEmployee);
 });
 
