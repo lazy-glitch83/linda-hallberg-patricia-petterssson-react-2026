@@ -87,7 +87,7 @@ function Employees() {
 return (
   <div>
     <button onClick={updateEmployees}>Update Employees</button>
-    <ul className="employees-list"></ul>
+    <ul className="employees-list">
       {/* Shows the first and last names of all employees */}
       {listEmployees.map((employee) => (
         <li key={employee.eid}>
