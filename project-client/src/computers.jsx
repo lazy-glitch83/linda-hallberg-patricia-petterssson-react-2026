@@ -91,26 +91,24 @@ function Computers() {
       {/* Section 2: Selectable Computer List */}
       <div>
         <label htmlFor="computerSelect">Select a Computer ID:</label>
-<select
-  id="cid-select"
-  value={selectedComputer ? selectedComputer.cid : ""}
-  onChange={(e) => {
-    console.log("Valt värde i rull-listen:", e.target.value);
-    if (e.target.value) {
-      getComputer(e.target.value);
+        <select
+          id="cid-select"
+            value={selectedComputer ? selectedComputer.cid : ""}
+              onChange={(e) => {
+              console.log("Valt värde i rull-listen:", e.target.value);
+              if (e.target.value) {
+                getComputer(e.target.value);
     }
   }}
->
-  <option value="" disabled>-- Select a Computer --</option>
-  {listComputers.map((computer) => (
-    <option key={computer.cid} value={computer.cid}>
-      {computer.cid}
-    </option>
+      >
+        <option value="" disabled>-- Select a Computer --</option>
+          {listComputers.map((computer) => (
+            <option key={computer.cid} value={computer.cid}>
+              {computer.cid}
+        </option>
   ))}
-</select>
+        </select>
       </div>
-
-      
 
       {/* Section 3: Selected Computer Details (Conditionally rendered when selectedComputer exists) */}
       {selectedComputer && (
@@ -129,6 +127,7 @@ function Computers() {
               ? selectedComputer.eid
               : "N/A"}
           </p>
+          <button onClick={() =>deleteComputer(selectedComputer.cid)}>Delete Computer</button>
         </div>
       )}
 
