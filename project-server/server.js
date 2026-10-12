@@ -53,9 +53,15 @@ app.get("/api/v1.0/computers", function (req, res) {
 //GET /api/v1.0/computers/:id      -> get one computer
 app.get("/api/v1.0/computers/:id", (req, res) => {
   console.log(`---> GET computer with cid ${req.params.id}`);
+
   const theComputer = db
     .prepare("SELECT * FROM Computer WHERE cid = ?")
-    .get([req.params.id]);
+    .get(computerId);
+
+  if (!theComputer) {
+    res.status(404).json({ error: "Computer not found" });
+    return;
+  }
 
   res.json(theComputer);
 });
