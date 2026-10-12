@@ -127,4 +127,5 @@ function Employees() {
     </div>
   );
 }
+// Makes the Employees component available in other files
 export default Employees;
