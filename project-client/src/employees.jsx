@@ -80,7 +80,7 @@ function Employees() {
         <button onClick={updateEmployees}>Update Employees</button>
 
         <ul>
-          {listEmployees.map((employee) => (
+          {listEmployees.slice(0, 5).map((employee) => (
             <li
               key={employee.eid}
               onClick={() => getEmployee(employee.eid)}
