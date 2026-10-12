@@ -4,10 +4,11 @@ import Employees from "./employees.jsx";
 
 function App() {
   return (
-    <div className="devices">
-      <h1>ALL COMPUTERS</h1>
+    <div className="app-container">
+      <h1>Computer and Employee Management System</h1>
+      <h2>ALL COMPUTERS</h2>
       <Computers />
-      <h1>ALL EMPLOYEES</h1>
+      <h2>ALL EMPLOYEES</h2>
       <Employees />
     </div>
   );
