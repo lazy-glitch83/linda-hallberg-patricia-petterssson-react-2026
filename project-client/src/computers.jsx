@@ -1,78 +1,94 @@
-//Fetch information and display all computers in the database in a nice way.
-
 import { useState } from "react";
-//import "./index.css";
 
 function Computers() {
-  const [listComputers, setListComputers] = useState([]); // usestate används för att spara värden som kan ändras medan sidan används
+  // State for holding the full array of computers fetched from the backend API
+  const [listComputers, setListComputers] = useState([]);
+
+  // State for holding detailed information about a single selected computer
   const [selectedComputer, setSelectedComputer] = useState(null);
-  
+
+  // Fetch all computers from the server
   const updateComputers = () => {
     fetch(`http://localhost:3000/api/v1.0/computers`)
       .then((response) => response.json())
       .then((data) => {
-        setListComputers(data);
+        setListComputers(data); // Save fetched array into state
         console.log("The data is there");
         console.log(`data: ${JSON.stringify(data)}`);
       })
       .catch((error) => console.error("Error fetching computers:", error));
   };
 
+  // Fetch detailed information for a specific computer by its unique ID (cid)
   const getComputer = (id) => {
-    //Get a specific computer by its ID
     fetch(`http://localhost:3000/api/v1.0/computers/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("The data is there");
         console.log(`Computer data: ${JSON.stringify(data)}`);
-        setSelectedComputer(data);
+        setSelectedComputer(data); // Update state to display computer details
       })
       .catch((error) => console.error("Error fetching computer:", error));
   };
 
+  // Handle new computer form submission using an uncontrolled component pattern
   const addComputer = (theEvent) => {
-    theEvent.preventDefault();
-    console.log(data);
+    theEvent.preventDefault(); // Prevent default browser form refresh
 
-    const formData = new FormData(theEvent.target);
+    // Capture form DOM element synchronously before any async fetch calls
+    const form = theEvent.currentTarget;
+
+    // Extract all input values using the native FormData API
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    data.year = Number(data.year); // Convert year to number.
-    data.eid = data.eid ? Number(data.eid) : null; // Convert eid to number or set to null if nothing applied.
+    // Convert string inputs to numeric types or set to null if empty
+    data.year = data.year ? Number(data.year) : null;
+    data.eid = data.eid ? Number(data.eid) : null;
 
+    console.log("Sending computer data:", data);
+
+    // Send HTTP POST request to persist the new computer in the database
     fetch(`http://localhost:3000/api/v1.0/computers`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Computer added successfully:", data);
-        updateComputers(); // Update the list of computers
-        theEvent.target.reset(); // Reset the form after submission
+      .then((response) => {
+        // Explicitly handle HTTP error status codes (e.g., 400 or 500)
+        if (!response.ok) {
+          throw new Error(`HTTP status error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        console.log("Computer added successfully:", responseData);
+        updateComputers(); // Refresh computer list to reflect changes
+        form.reset();      // Clear form inputs
       })
       .catch((error) => console.error("Error adding computer:", error));
   };
 
   return (
     <div>
-      {/* 1. Computers List */}
+      {/* Section 1: Computers List */}
       <div className="computers-list">
         <button onClick={updateComputers}>Update Computers</button>
         <ul>
-          {listComputers.map((computers) => (
+          {listComputers.map((computer) => (
             <li
-              key={computers.cid}
-              onClick={() => getComputer(computers.cid)}
+              key={computer.cid}
+              onClick={() => getComputer(computer.cid)} // Load computer details on click
               style={{ cursor: "pointer" }}
             >
-              Type: {computers.type}, Brand: {computers.brand}, Model:{" "}
-              {computers.model}
+              Type: {computer.type}, Brand: {computer.brand}, Model:{" "}
+              {computer.model}
             </li>
           ))}
         </ul>
       </div>
 
+      {/* Section 2: Selected Computer Details (Conditionally rendered when selectedComputer exists) */}
       {selectedComputer && (
         <div className="computer-details">
           <h3>Computer ID: {selectedComputer.cid}:</h3>
@@ -84,6 +100,7 @@ function Computers() {
           <p>Year: {selectedComputer.year}</p>
           <p>
             Employee ID:{" "}
+            {/* Display Employee ID or 'N/A' fallback if null/undefined */}
             {selectedComputer.eid !== null && selectedComputer.eid !== undefined
               ? selectedComputer.eid
               : "N/A"}
@@ -91,12 +108,13 @@ function Computers() {
         </div>
       )}
 
+      {/* Section 3: Add Computer Form */}
       <div className="form-container">
         <h3>Add Computer:</h3>
         <form onSubmit={addComputer}>
-          <input type="text" name="type" placeholder="Type" />
-          <input type="text" name="brand" placeholder="Brand" />
-          <input type="text" name="model" placeholder="Model" />
+          <input type="text" name="type" placeholder="Type" required />
+          <input type="text" name="brand" placeholder="Brand" required />
+          <input type="text" name="model" placeholder="Model" required />
           <input type="text" name="ram" placeholder="RAM" />
           <input type="text" name="disk" placeholder="Disk" />
           <input type="number" name="year" placeholder="Year" />
