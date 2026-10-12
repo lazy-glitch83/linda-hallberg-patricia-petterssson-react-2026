@@ -80,8 +80,8 @@ function Employees() {
         onChange={changeEmployeeId}
       />
       <button onClick={getEmployee}>Get Employee</button>
-      //I followed the same structure as the computer details component, but
-      used the employee fields instead. Not sure if its correct
+      {/*I followed the same structure as the computer details component, but
+      used the employee fields instead. Not sure if its correct*/}
       {selectedEmployee && (
         <div>
           <h3>Employee ID: {selectedEmployee.eid}</h3>
