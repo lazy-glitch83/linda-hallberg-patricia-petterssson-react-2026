@@ -117,7 +117,7 @@ function Employees() {
 
       {/* information about the selected employee */}
       {selectedEmployee && (
-        <div>
+        <div className="employee-details">
           <h3>Employee ID: {selectedEmployee.eid}</h3>
           <p>Firstname: {selectedEmployee.fname}</p>
           <p>Lastname: {selectedEmployee.lname}</p>
@@ -126,23 +126,27 @@ function Employees() {
           <p>Date of birth: {selectedEmployee.dateofbirth}</p>
         </div>
       )}
+
       {/* button to delete the selected employee */}
       <button onClick={() => deleteEmployee(Number(employeeId))}>
         Delete Employee
       </button>
 
       {/* form to add a new employee */}
-      <h3>Add Employee:</h3>
-      <form onSubmit={addEmployee}>
-        <input type="text" name="fname" placeholder="First name" />
-        <input type="text" name="lname" placeholder="Last name" />
-        <input type="text" name="phone" placeholder="Phone" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="date" name="dateofbirth" />
-        <button type="submit">Submit</button>
-      </form>
+      <div className="form-container">
+        <h3>Add Employee:</h3>
+        <form onSubmit={addEmployee}>
+          <input type="text" name="fname" placeholder="First name" />
+          <input type="text" name="lname" placeholder="Last name" />
+          <input type="text" name="phone" placeholder="Phone" />
+          <input type="email" name="email" placeholder="Email" />
+          <input type="date" name="dateofbirth" />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </div>
   );
 }
+
 // Makes the Employees component available in other files
 export default Employees;
