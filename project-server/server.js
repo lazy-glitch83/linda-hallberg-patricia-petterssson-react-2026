@@ -104,10 +104,16 @@ app.get("/api/v1.0/employees", function (req, res) {
 //GET /api/v1.0/employees/:id      -> get one employee
 app.get("/api/v1.0/employees/:id", (req, res) => {
   console.log(`---> GET employee with eid ${req.params.id}`);
+
+  const employeeId = req.params.id;
   const theEmployee = db
     .prepare("SELECT * FROM Employee WHERE eid = ?")
-    .get([req.params.id]);
-
+    .get(employeeId);
+  
+  if (!theEmployee) {
+    res.status(404).json({ error: "Employee not found" });
+    return;
+  }
   res.json(theEmployee);
 });
 
