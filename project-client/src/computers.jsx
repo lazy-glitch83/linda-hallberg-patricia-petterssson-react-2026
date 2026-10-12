@@ -75,7 +75,7 @@ function Computers() {
       <div className="computers-list">
         <button onClick={updateComputers}>Update Computers</button>
         <ul>
-          {listComputers.map((computer) => (
+          {listComputers.slice(0, 10).map((computer) => (
             <li
               key={computer.cid}
               onClick={() => getComputer(computer.cid)} // Load computer details on click
