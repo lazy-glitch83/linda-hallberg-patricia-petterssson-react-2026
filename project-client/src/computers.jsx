@@ -42,9 +42,9 @@ function Computers() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Convert string inputs to numeric types or set to null if empty
-    data.year = data.year ? Number(data.year) : null;
-    data.eid = data.eid ? Number(data.eid) : null;
+    // Convert string inputs to numeric types or set to null if empty, changed to parseInt for year
+    data.year = data.year ? parseInt(data.year, 10) : null;
+    data.eid = data.eid ? parseInt(data.eid, 10) : null;
 
     console.log("Sending computer data:", data);
 
