@@ -34,6 +34,12 @@ function Employees() {
     theEvent.preventDefault();
     setEmployeeId(theEvent.target.value); // takes the value from the input field and sets it to employeeId
   };
+  //when user selects an employee from the dropdown
+  const handleSelectEid = (e) => {
+    const selectedEid = e.target.value;
+    setEmployeeId(selectedEid);
+  };
+
   const addEmployee = (theEvent) => {
     theEvent.preventDefault();
 
@@ -79,6 +85,15 @@ function Employees() {
         value={employeeId}
         onChange={changeEmployeeId}
       />
+      <select value={employeeId} onChange={handleSelectEid}>
+        <option value="">Select Employee ID</option>
+        {listEmployees.map((employee) => (
+          <option key={employee.eid} value={employee.eid}>
+            {employee.eid} - {employee.fname} {employee.lname}
+          </option>
+        ))}
+      </select>
+
       <button onClick={getEmployee}>Get Employee</button>
       {/*I followed the same structure as the computer details component, but
       used the employee fields instead. Not sure if its correct*/}
