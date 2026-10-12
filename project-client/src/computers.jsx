@@ -6,7 +6,7 @@ import { useState } from "react";
 function Computers() {
   const [listComputers, setListComputers] = useState([]); // usestate används för att spara värden som kan ändras medan sidan används
   const [selectedComputer, setSelectedComputer] = useState(null);
-
+  
   const updateComputers = () => {
     fetch(`http://localhost:3000/api/v1.0/computers`)
       .then((response) => response.json())
@@ -32,6 +32,7 @@ function Computers() {
 
   const addComputer = (theEvent) => {
     theEvent.preventDefault();
+    console.log(data);
 
     const formData = new FormData(theEvent.target);
     const data = Object.fromEntries(formData.entries());
