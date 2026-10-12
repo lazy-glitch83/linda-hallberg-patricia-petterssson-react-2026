@@ -1,4 +1,96 @@
-.counter {
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+/* Listvy för datorer */
+.computers-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.computers-list li {
+  padding: 10px;
+  margin: 6px 0;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.computers-list li:hover {
+  background-color: #e9ecef;
+}
+
+/* Rull-list */
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+/* Detaljvy för vald dator */
+.computer-details {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+  background-color: #e8f4f8;
+  color: #004085;
+}
+
+.computer-details button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.computer-details button:hover {
+  background-color: #bd2130;
+}
+
+/* Formulär för att lägga till datorer */
+.form-container {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.form-container input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #218838;
+}
+
+/*.counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -181,4 +273,4 @@
     right: 0;
     border-right-color: var(--border);
   }
-}
+}*/
