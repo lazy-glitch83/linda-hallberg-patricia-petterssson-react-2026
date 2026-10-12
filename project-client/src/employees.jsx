@@ -1,7 +1,7 @@
 //Fetch information and display all employees in the database in a nice way.
 
 import { useState } from "react";
-//import "./index.css";
+
 
 function Employees() {
   const [listEmployees, setListEmployees] = useState([]);
