@@ -45,7 +45,6 @@ app.get("/", (req, res) => {
 //GET /api/v1.0/computers      -> get all computers
 app.get("/api/v1.0/computers", function (req, res) {
   console.log("---> GET all computers");
-
   const stmt = db.prepare("SELECT * FROM Computer");
   const computers = stmt.all();
   res.json(computers);
@@ -54,7 +53,6 @@ app.get("/api/v1.0/computers", function (req, res) {
 //GET /api/v1.0/computers/:id      -> get one computer
 app.get("/api/v1.0/computers/:id", (req, res) => {
   console.log(`---> GET computer with cid ${req.params.id}`);
-
   const theComputer = db
     .prepare("SELECT * FROM Computer WHERE cid = ?")
     .get([req.params.id]);
@@ -64,18 +62,24 @@ app.get("/api/v1.0/computers/:id", (req, res) => {
 
 // POST /api/v1.0/computers      -> create a computer
 app.post("/api/v1.0/computers", (req, res) => {
-  console.log("Request body:", req.body); // Log the request body for debugging
-  const { type, brand, model, ram, disk, year, eid } = req.body
-
-  const parsedYear = year ? parseInt(year, 10) : null;
-  const parsedEid = eid ? parseInt(eid, 10) : null;
-
-  const stmt = db.prepare("INSERT INTO Computer (type, brand, model, ram, disk, year, eid) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  //const { brand, model, ram, disk, year, eid } = req.body
   console.log("--> ADD a Computer");
+  const type = "laptop";
+  const brand = "HP";
+  const model = "EliteBook";
+  const ram = "16GB";
+  const disk = "512GB";
+  const year = "2021";
 
-  const theComputer = stmt.run(type, brand, model, ram, disk, parsedYear, parsedEid);
+  const theComputer = db
+    .prepare(
+      "INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)",
+    )
+    .run([type, brand, model, ram, disk, year]);
   res.json(theComputer);
 });
+
+// PUT /api/v1.0/computers/:id      -> update a computer
 
 // DELETE /api/v1.0/computers/:id   -> delete a computer
 app.delete("/api/v1.0/computers/:id", (req, res) => {
@@ -108,13 +112,13 @@ app.get("/api/v1.0/employees/:id", (req, res) => {
 
 // POST /api/v1.0/employees      -> create an employee
 app.post("/api/v1.0/employees", (req, res) => {
-  //const { fname, lname, phone, email, dateofbirth } = req.body;
-  console.log("--> ADD an Employee");
-  const fname = "John";
-  const lname = "Doe";
-  const phone = "123-456-7890";
-  const email = "john.doe@example.com";
-  const dateofbirth = "1990-01-01";
+  const { fname, lname, phone, email, dateofbirth } = req.body;
+  // console.log("--> ADD an Employee");
+  //const fname = "John";
+  //const lname = "Doe";
+  //const phone = "123-456-7890";
+  //const email = "john.doe@example.com";
+  //const dateofbirth = "1990-01-01";
 
   const theEmployee = db
     .prepare(
