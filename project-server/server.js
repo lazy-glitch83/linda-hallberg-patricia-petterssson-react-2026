@@ -54,6 +54,8 @@ app.get("/api/v1.0/computers", function (req, res) {
 app.get("/api/v1.0/computers/:id", (req, res) => {
   console.log(`---> GET computer with cid ${req.params.id}`);
 
+  const computerId = req.params.id;
+
   const theComputer = db
     .prepare("SELECT * FROM Computer WHERE cid = ?")
     .get(computerId);
@@ -68,24 +70,17 @@ app.get("/api/v1.0/computers/:id", (req, res) => {
 
 // POST /api/v1.0/computers      -> create a computer
 app.post("/api/v1.0/computers", (req, res) => {
-  //const { brand, model, ram, disk, year, eid } = req.body
+  const { type, brand, model, ram, disk, year, eid } = req.body
   console.log("--> ADD a Computer");
-  const type = "laptop";
-  const brand = "HP";
-  const model = "EliteBook";
-  const ram = "16GB";
-  const disk = "512GB";
-  const year = "2021";
 
   const theComputer = db
     .prepare(
-      "INSERT INTO Computer (type, brand, model, ram, disk, year) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO Computer (type, brand, model, ram, disk, year, eid) VALUES (?, ?, ?, ?, ?, ?, ?)",
     )
-    .run([type, brand, model, ram, disk, year]);
+    .run([type, brand, model, ram, disk, year, eid]);
   res.json(theComputer);
 });
 
-// PUT /api/v1.0/computers/:id      -> update a computer
 
 // DELETE /api/v1.0/computers/:id   -> delete a computer
 app.delete("/api/v1.0/computers/:id", (req, res) => {

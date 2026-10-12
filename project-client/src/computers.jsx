@@ -70,18 +70,22 @@ function Computers() {
   };
 
   // Handle deletion of a computer by its unique ID (cid)
-  const deleteComputer = (id) => {
+const deleteComputer = (id) => {
     fetch(`http://localhost:3000/api/v1.0/computers/${id}`, {
       method: "DELETE",
     })
-      .then((response) => response.json()) 
+      .then((response) => response.json())
       .then((data) => {
-    console.log("Computer deleted successfully:", data);
-    updateComputers(); 
-    setSelectedComputer(null); 
-  })
-  .catch ((error) => console.error("Error deleting computer:", error));
-};
+        console.log("Computer deleted successfully:", data);
+
+        setListComputers((prevList) =>
+          prevList.filter((computer) => computer.cid !== id)
+        );
+
+       setSelectedComputer(null);
+      })
+      .catch((error) => console.error("Error deleting computer:", error));
+  };
 
   return (
     <div>
