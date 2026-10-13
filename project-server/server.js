@@ -14,32 +14,40 @@ app.use(cors()); // enable CORS for all routes
 
 // ROOT ROUTES - Combined API for Computers and Employees
 app.get("/", (req, res) => {
-  // define the default route '/'
+  // Hämta första datorn och anställda ur databasen för att få giltiga test-ID:n
+  const sampleComp = db.prepare("SELECT cid FROM Computer LIMIT 1").get();
+  const sampleEmp = db.prepare("SELECT eid FROM Employee LIMIT 1").get();
+
+  // Om tabellen skulle vara tom används fall-back "1"
+  const compId = sampleComp ? sampleComp.cid : "1";
+  const empId = sampleEmp ? sampleEmp.eid : "1";
+
   res.send(`<div style="font-family: sans-serif;">
         <h1>Welcome on the server API 1.0</h1>
         <h2>REST API Computers:</h2>
         <ul>
             <li>GET all computers: <a href="http://localhost:${MYPORT}/api/v1.0/computers">http://localhost:${MYPORT}/api/v1.0/computers</a></li>
 
-            <li>GET computer number 2347: <a href="http://localhost:${MYPORT}/api/v1.0/computers/2347">http://localhost:${MYPORT}/api/v1.0/computers/2347</a></li>
+            <li>GET computer number ${compId}: <a href="http://localhost:${MYPORT}/api/v1.0/computers/${compId}">http://localhost:${MYPORT}/api/v1.0/computers/${compId}</a></li>
 
             <li>ADD a computer: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers', { method: 'POST' })">Add Computer</button></li>
 
-            <li>DELETE computer number 3330: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers/3330', { method: 'DELETE' })">Delete Computer</button></li>
+            <li>DELETE computer number ${compId}: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/computers/${compId}', { method: 'DELETE' })">Delete Computer</button></li>
         </ul>
 
-                <h2>REST API Employees:</h2>
+        <h2>REST API Employees:</h2>
         <ul>
             <li>GET all employees: <a href="http://localhost:${MYPORT}/api/v1.0/employees">http://localhost:${MYPORT}/api/v1.0/employees</a></li>
 
-            <li>GET employee number 37: <a href="http://localhost:${MYPORT}/api/v1.0/employees/37">http://localhost:${MYPORT}/api/v1.0/employees/37</a></li>
+            <li>GET employee number ${empId}: <a href="http://localhost:${MYPORT}/api/v1.0/employees/${empId}">http://localhost:${MYPORT}/api/v1.0/employees/${empId}</a></li>
 
             <li>ADD an employee: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/employees', { method: 'POST' })">Add Employee</button></li>
 
-            <li>DELETE employee number 3: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/employees/3', { method: 'DELETE' })">Delete Employee</button></li>
+            <li>DELETE employee number ${empId}: <button onclick="fetch('http://localhost:${MYPORT}/api/v1.0/employees/${empId}', { method: 'DELETE' })">Delete Employee</button></li>
         </ul>
     </div>`);
 });
+
 
 // ROUTES FOR COMPUTERS
 //GET /api/v1.0/computers      -> get all computers
