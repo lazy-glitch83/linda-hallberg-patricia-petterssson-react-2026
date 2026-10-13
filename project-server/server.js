@@ -15,11 +15,11 @@ app.use(cors()); // enable CORS for all routes
 // ROOT ROUTES - Combined API for Computers and Employees
 app.get("/", (req, res) => {
   // Hämta första datorn och anställda ur databasen för att få giltiga test-ID:n
-  const sampleComp = db.prepare("SELECT cid FROM Computer LIMIT 1").get();
+  const sampleComp = db.prepare("SELECT cid FROM Computer LIMIT 1").get(); //koden genererad Gemini AI
   const sampleEmp = db.prepare("SELECT eid FROM Employee LIMIT 1").get();
 
   // Om tabellen skulle vara tom används fall-back "1"
-  const compId = sampleComp ? sampleComp.cid : "1";
+  const compId = sampleComp ? sampleComp.cid : "1"; //koden genererad Gemini AI
   const empId = sampleEmp ? sampleEmp.eid : "1";
 
   res.send(`<div style="font-family: sans-serif;">
@@ -47,7 +47,6 @@ app.get("/", (req, res) => {
         </ul>
     </div>`);
 });
-
 
 // ROUTES FOR COMPUTERS
 //GET /api/v1.0/computers      -> get all computers
